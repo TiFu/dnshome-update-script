@@ -44,22 +44,23 @@ fi
 current=$ipv6
 ipv4=$(curl http://checkip.amazonaws.com)
 
-if [ "$oldv6" = "$current" ] && [ "$oldv4" = "$ipv4" ]; then
-  echo "ipv6 and ipv4 unchanged"
-  exit
-fi
-
 # send ipv6es to dynv6
 
-if [ -n "$ipv6"]; then
-  echo "Updating v6 to $current"	
-  echo "http://$subdomain:$password@dnshome.de/dyndns.php?ip6=$current"
-  $bin "http://$subdomain:$password@dnshome.de/dyndns.php?ip6=$current"
+if [ -n "$current" ]; then
+  if [ "$oldv6" != "$current" ]; then 
+	echo "Updating v6 to $current"	
+	echo "http://$subdomain:$password@dnshome.de/dyndns.php?ip6=$current"
+	$bin "http://$subdomain:$password@dnshome.de/dyndns.php?ip6=$current"
+	echo $current > $ipv6file
+  fi
 fi
 if [ -n "$ipv4" ]; then
-  echo "Updating v4 to $ipv4"
-  echo "http://$subdomain:$password@dnshome.de/dyndns.php?ip=$ipv4"
-  $bin "http://$subdomain:$password@dnshome.de/dyndns.php?ip=$ipv4"
+  if [ "$oldv4" = "$ipv4" ]; then 
+  	echo "Updating v4 to $ipv4"
+  	echo "http://$subdomain:$password@dnshome.de/dyndns.php?ip=$ipv4"
+  	$bin "http://$subdomain:$password@dnshome.de/dyndns.php?ip=$ipv4"
+	echo $ipv4 > $ipv4file
+  fi
 fi
 
 
@@ -67,5 +68,4 @@ fi
 #$bin "http://ipv4.dynv6.com/api/update?hostname=$subdomain&ipv4=auto&token=$password"
 
 # save current ipv6
-echo $current > $ipv6file
-echo $ipv4 > $ipv4file
+
