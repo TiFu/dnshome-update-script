@@ -55,14 +55,14 @@ if [ -n "$current" ]; then
 	echo $current > $ipv6file
   fi
 fi
-if [ -n "$ipv4" ]; then
-  if [ "$oldv4" != "$ipv4" ]; then 
-  	echo "Updating v4 to $ipv4"
-  	echo "http://$subdomain:$password@dnshome.de/dyndns.php?ip=$ipv4"
-  	$bin "http://$subdomain:$password@dnshome.de/dyndns.php?ip=$ipv4"
-	echo $ipv4 > $ipv4file
-  fi
-fi
+#if [ -n "$ipv4" ]; then
+#  if [ "$oldv4" != "$ipv4" ]; then 
+#  	echo "Updating v4 to $ipv4"
+#  	echo "http://$subdomain:$password@dnshome.de/dyndns.php?ip=$ipv4"
+#  	$bin "http://$subdomain:$password@dnshome.de/dyndns.php?ip=$ipv4"
+#	echo $ipv4 > $ipv4file
+#  fi
+#fi
 
 
 #$bin "http://dynv6.com/api/update?hostname=$subdomain&ipv6=$current&token=$password"
