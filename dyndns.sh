@@ -56,7 +56,7 @@ if [ -n "$ipv6"]; then
   echo "http://$subdomain:$password@dnshome.de/dyndns.php?ip6=$current"
   $bin "http://$subdomain:$password@dnshome.de/dyndns.php?ip6=$current"
 fi
-if [ -n "$ipv4" ]
+if [ -n "$ipv4" ]; then
   echo "Updating v4 to $ipv4"
   echo "http://$subdomain:$password@dnshome.de/dyndns.php?ip=$ipv4"
   $bin "http://$subdomain:$password@dnshome.de/dyndns.php?ip=$ipv4"
