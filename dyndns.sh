@@ -46,6 +46,7 @@ ipv4=$(curl http://checkip.amazonaws.com)
 
 # send ipv6es to dynv6
 
+echo "Current is: $current"
 if [ -n "$current" ]; then
   if [ "$oldv6" != "$current" ]; then 
 	echo "Updating v6 to $current"	
