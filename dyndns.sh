@@ -41,7 +41,7 @@ else
 fi
 
 # ipv6 with netmask
-current=$ipv6/$netmask
+current=$ipv6
 ipv4=$(curl http://checkip.amazonaws.com)
 
 if [ "$oldv6" = "$current" ] && [ "$oldv4" = "$ipv4" ]; then
@@ -51,17 +51,15 @@ fi
 
 # send ipv6es to dynv6
 
-if [ -z $ipv4] && [ -z $ipv6 ]; then
-  echo "Neither ipv4 nor ipv6 found"
-elif [ -z $ipv4 ] && [ -n "$ipv6"]; then
-  echo "Found only ipv6"
+if [ -n "$ipv6"]; then
+  echo "Updating v6 to $current"	
+  echo "http://$subdomain:$password@dnshome.de/dyndns.php?ip6=$current"
   $bin "http://$subdomain:$password@dnshome.de/dyndns.php?ip6=$current"
-elif [ -n "$ipv4" ] && [ -z "$ipv6"]; then
-  echo "Found only ipv4"
+fi
+if [ -n "$ipv4" ]
+  echo "Updating v4 to $ipv4"
+  echo "http://$subdomain:$password@dnshome.de/dyndns.php?ip=$ipv4"
   $bin "http://$subdomain:$password@dnshome.de/dyndns.php?ip=$ipv4"
-else 
-  echo "Found both, ipv4 and ipv6"
-  $bin "http://$subdomain:$password@dnshome.de/dyndns.php?ip=$ipv4&ip6=$current"
 fi
 
 
